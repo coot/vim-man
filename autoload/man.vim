@@ -22,6 +22,8 @@ fun! man#Man(cmd, topic)
     only
   elseif a:cmd == "new"
     new
+  elseif a:cmd == "vnew"
+    vnew
   elseif exists("b:type") && b:type == "man"
     setl ma
     silent 0,$d_
