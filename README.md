@@ -1,6 +1,6 @@
-# Simple vim man plugin
+# Simple vim MAN plugin
 
-It comes with a few commands:
+It defines the following commands:
 ```viml
 :Man 2,7 socket " open socket socket man page in chapter 2 or 7 (one can use
                 " completion to choose the right man page); it will re-use
@@ -10,5 +10,7 @@ It comes with a few commands:
 :VMan ...       " open in a new window (like :vnew)
 :OMan ...       " open in a new window and use :only
 ```
+
+You can set the max man width with `g:man_maxwidth` (by default it is not set).
 
 All commands come with completion, which is driven by `man -k`.
