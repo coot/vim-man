@@ -34,7 +34,11 @@ fun! man#Man(cmd, topic)
   let bufnr = bufnr("%")
   let winfo = filter(getwininfo(), {idx, val -> val.bufnr == bufnr})
   if len(winfo) >= 1
-    let manWidth = "MANWIDTH=" . (winfo[0].width - 1)
+    let width = winfo[0].width - 1
+    if exists("g:man_maxwidth")
+      let width = min([width, g:man_maxwidth])
+    endif
+    let manWidth = "MANWIDTH=" . width
   else
     let manWidth = ""
   endif
@@ -48,7 +52,7 @@ fun! man#Man(cmd, topic)
   setl noma
   setl nornu nonu
   setl bufhidden=wipe
-  setl bt=nofile
+  setl buftype=nofile
   setl nospell
   nm <buffer> q :bw<cr>
 endfun
