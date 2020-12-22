@@ -1,4 +1,4 @@
-fun! man#Man(cmd, topic)
+fun! man#Man(bang, mods, count, topic) abort
   let parse = split(a:topic, '\%(\d\|,\|:\)*\zs\s\+')
   let parseLen = len(parse)
   if parseLen == 0
@@ -16,21 +16,12 @@ fun! man#Man(cmd, topic)
   else
     let chapterOpt = "-s ".chapter
   endif
-  if a:cmd == "only"
-    let ma=&l:ma
-    new
-    only
-  elseif a:cmd == "new"
-    new
-  elseif a:cmd == "vnew"
-    vnew
-  elseif exists("b:type") && b:type == "man"
+  if &filetype == "man" && a:bang == ""
     setl ma
     silent 0,$d_
   else
-    new
+    exe a:mods . " "  . (a:count == 0 ? '' : a:count)   . "new"
   endif
-  let b:type = "man"
   let bufnr = bufnr("%")
   let winfo = filter(getwininfo(), {idx, val -> val.bufnr == bufnr})
   if len(winfo) >= 1
