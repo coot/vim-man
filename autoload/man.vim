@@ -16,7 +16,7 @@ fun! man#Man(bang, mods, count, topic) abort
   else
     let chapterOpt = "-s ".chapter
   endif
-  if &filetype == "man" && a:bang == ""
+  if &filetype == "man" && a:bang == "!"
     setl ma
     silent 0,$d_
   else
